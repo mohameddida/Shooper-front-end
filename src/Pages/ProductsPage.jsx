@@ -1,5 +1,7 @@
-import React from "react";
-import { Container } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Form, Pagination } from "react-bootstrap";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import { useLocation } from "react-router";
 import produt1 from "../asset/products/robe/1.jpg";
 import produt2 from "../asset/products/robe/images (1).jpeg";
 import produt3 from "../asset/products/robe/images (2).jpeg";
@@ -75,11 +77,69 @@ const ProductsPage = () => {
       price: 3.0,
     },
   ];
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 6;
+  const totalPages = Math.ceil(Products.length / productsPerPage);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+  const currentProducts = Products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const { search } = useLocation();
+  const query = new URLSearchParams(search).get("query");
   return (
-    <Container className="d-grid ">
-      {Products.map((product) => (
-        <ProductsCard product={product} />
-      ))}
+    <Container className="d-grid p-3 mx-3 w-100">
+      <h2>{query}</h2>
+      <div className="d-flex justify-content-between w-100 mb-4">
+        <div>{Products.length} products</div>
+        <div className="d-flex  align-items-center gap-3 ">
+          <Form.Label>sort by</Form.Label>
+          <Form.Select className="selectFilter w-auto">
+            <option value="popular">popular</option>
+            <option value="min price first">min price first</option>
+            <option value="max price first">Three</option>
+            <option value="Date">date</option>
+          </Form.Select>
+        </div>
+      </div>
+      <div className="d-flex flex-wrap gap-5 w-100">
+        {currentProducts.map((product) => (
+          <ProductsCard product={product} />
+        ))}
+      </div>
+      <div className="pagination-container">
+        <Pagination className="font-weight-bold">
+          <Pagination.Prev
+          className="gap-3"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            <FaArrowLeftLong /> <span> Previous</span>
+          </Pagination.Prev>
+          {[...Array(totalPages)].map((_, index) => (
+            <Pagination.Item
+              key={index + 1}
+              active={index + 1 === currentPage}
+              onClick={() => setCurrentPage(index + 1)}
+            >
+              {index + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next
+            className="gap-4"
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+          >
+            <span>Next </span>
+            <FaArrowRightLong />
+          </Pagination.Next>
+        </Pagination>
+      </div>
     </Container>
   );
 };

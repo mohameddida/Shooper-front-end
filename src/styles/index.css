@@ -2,22 +2,44 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+
 /* nav bar style */
+.fixed-navbar {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  z-index: 1000;
+}
 .searchBar {
-  color: white !important;
-  background-color: #79747e;
+  color: #0f0c0c !important;
+  background-color: #f5f5f5;
+}
+.selectFilter{
+  width: 70%;
+  background-color: #f5f5f5;
+}
+.searchBar::-webkit-input-placeholder {
+  color: #0f0c0c;
+}
+
+.searchBar:-moz-placeholder {
+  color: #0f0c0c;
+}
+
+.searchBar::-ms-input-placeholder {
+  color: #0f0c0c;
 }
 .btn-login {
-  background-color: #2b2a2a;
-  color: white !important;
+  background-color: #f5f5f5;
+  color: #0f0c0c !important;
   text-align: center;
   border: none !important;
   align-items: center;
-  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
 }
 .btn-login:hover {
-   background-color: #716e6e;
-  color: white !important;
+  background-color: #f5f5f5;
+  color: #0f0c0c !important;
   border: none !important;
 }
 
@@ -32,16 +54,17 @@
 /* sidebar style */
 
 .sidebar {
-  background-color: #ffffff;
-  display: grid !important;
-  box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.25);
- 
+  position: fixed; 
+  top: 56px;
+  left: 0;
+  width: 250px;
+  height: calc(100% - 56px); 
+  overflow-y: auto; 
+  background-color: #f5f5f5; 
+  z-index: 999; 
 }
 
-.brand-block {
-  display: flexbox;
-  flex-wrap: wrap;
-}
+
 .card-header {
   margin-bottom: 0;
   -ms-flex-align: center !important;
@@ -56,8 +79,8 @@
 }
 
 .btn-form {
-  background-color: #f53e32;
-  color: white;
+  background-color: #f5f5f5;
+  color: #0f0c0c;
   border: none;
   border-radius: 18px;
   width: 80px;
@@ -65,13 +88,14 @@
 }
 
 .form-check-input {
-  background-color: transparent;
+  background-color: #f5f5f5;
   width: 16px;
   height: 16px;
   border-radius: 5px;
+  border-color: #0f0c0c;
 }
 .form-check-input:checked {
-  background-color: #f53e32;
+  background-color: #f5f5f5;
   width: 16px;
   height: 16px;
   border-radius: 5px;
@@ -79,45 +103,48 @@
 }
 
 .btn-brand {
-  background-color: #ffffff;
+  background-color: #f5f5f5;
   border: none;
-  color: gray;
+  color: #0f0c0c;
   padding: 5px;
   margin-right: 5px 10px;
 }
 .btn-brand:hover {
-  background-color: #f53e32;
+  background-color: #f5f5f5;
   border: none;
-  color: #ffffff;
+  color: #0f0c0c;
   margin-right: 5px;
   padding: 5px;
   margin-right: 5px 10px;
 }
 .btn-brand:focus {
-  background-color: #f53e32;
+  background-color: #f5f5f5;
   border: none;
-  color: #ffffff;
+  color: #0f0c0c;
   margin-right: 5px;
   padding: 5px;
   margin-right: 5px 10px;
 }
 .btn-brand-active {
-  background-color: #f53e32;
+  background-color: #f5f5f5;
   border: none;
   padding: 5px;
   margin-right: 10px;
 }
 .btn-brand:current {
-  background-color: #f53e32;
+  background-color: #f5f5f5;
 }
 .menu-btn-sidebar {
   display: none;
 }
 
 /* search page style */
+.search-Content {
+  margin: 0px auto;
+}
 .btn-search {
-  background-color: #f53e32;
-  color: #ffffff;
+  background-color: #f5f5f5;
+  color: #0f0c0c;
   font-size: medium;
   width: 197px;
   height: 30px;
@@ -126,8 +153,8 @@
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 .btn-search:hover {
-  background-color: #d22d21;
-  color: #ffffff;
+  background-color: #f5f5f5;
+  color: #0f0c0c;
 
   font-size: medium;
   width: 197px;
@@ -136,7 +163,7 @@
   border-color: transparent;
 }
 .suggestions-section {
-  background-color: #f53e32;
+  background-color: #f5f5f5;
   border-radius: 18px;
   width: 100%;
   height: 100vh;
@@ -146,11 +173,7 @@
   transition: transform 0.3s;
 }
 .suggestion-card {
-  width: 150px;
-  height: 155px;
-  margin: 0px 0px 0px 5px;
-  display: flex;
-  justify-content: center;
+  width: 10rem;
 }
 .product-image {
   width: 150px;
@@ -166,17 +189,24 @@
 }
 
 .img-card {
-  width: 148px;
-  height: 148px;
-  border-radius: 18px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 261px;
 }
 .title-card {
   font-size: medium;
   font-weight: 500;
-  color: #f53e32;
+  color: #0f0c0c;
   font-style: oblique;
 }
+.pagination-container {
+  display: flex;
+  justify-content: center; 
+  margin-top: 20px; 
+  font-size: 10px;
+  font-weight: 500;
+
+}
+
 /* responsive style */
 @media (max-width: 768px) {
   .main-page {
@@ -197,6 +227,6 @@
   }
   .btn-clicked {
     font-size: x-large;
-    color: #f53e32;
+    color: #0f0c0c;
   }
 }

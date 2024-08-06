@@ -2,7 +2,7 @@ import ProductsPage from "../Pages/ProductsPage";
 
 export const ProductsRouter = [
   {
-    path: "/results/products",
+    path: "/results/",
     element: <ProductsPage />,
   },
   {

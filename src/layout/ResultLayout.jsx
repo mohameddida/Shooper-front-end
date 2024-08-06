@@ -10,21 +10,17 @@ const ResultLayout = () => {
   // const handleShow = () => setShow(true);
   return (
     <>
-      <div className="d-grid">
       <NavBar handleShow={handleClose} />
-        <main className="main-page">
-          <div className="col-3 d-flex">
-            <SideBar
-              handleClose={handleClose}
-              show={show}
-              handleShow={handleClose}
-            />
-          </div>
-          <div className="d-flex col-9">
-            <Outlet />
-          </div>
-        </main>
-      </div>
+
+      <SideBar handleClose={handleClose} show={show} handleShow={handleClose} />
+      <main
+        className="main-page flex-row"
+        style={{ marginLeft: "260px", marginTop: "56px" }}
+      >
+        <div className="d-flex w-100">
+          <Outlet />
+        </div>
+      </main>
     </>
   );
 };

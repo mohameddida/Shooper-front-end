@@ -8,6 +8,7 @@ import product5 from "../asset/products/pexels-marleneleppanen-1183266.jpg";
 import product6 from "../asset/products/pexels-morningtrain-18105.jpg";
 import product7 from "../asset/products/pexels-mota-701877.jpg";
 import product8 from "../asset/products/pexels-spencer-selover-142259-428338.jpg";
+import SuggetionCard from "../components/Cards/SuggetionCard";
 import SearchInput from "../components/inputs/SearchInput";
 import NavBar from "../components/navBar/NavBar";
 import "../styles/index.css";
@@ -63,19 +64,50 @@ const SearchLayout = ({ search, openvoicesearch }) => {
   const clearinput = () => {
     setinput("");
   };
+
+  const infos = [
+    {
+      id: 0,
+      title: "Find the best deals on phone’s",
+      url: "/results/products",
+    },
+    {
+      id: 1,
+      title: "What are the latest on Fashion",
+      url: "/results/products",
+    },
+    {
+      id: 2,
+      title: "Show me top-rated Beauty & Health products",
+      url: "/results/products",
+    },
+    {
+      id: 3,
+      title: "Get a trend report for Home & Kitchen",
+      url: "/results/products",
+    },
+  ];
   return (
-    <Container className="d-grid justifiy-content-center p-3 h-100">
-      <Row>
+    <Container className="d-flex flex-column justifiy-content-center p-3 h-100">
+      <Row >
         <NavBar />
       </Row>
-      <div className="fixed-bottom">
-        <Container>
-          <Row className="text-center">
-            <h4>SHOOPER</h4>
-          </Row>
+      <Container
+        fluid
+        className="col-md-12 search-Content d-flex flex-column align-items-center justify-content-center  my-5"
+      >
+        <div className="text-center">
+          <h4>SHOOPER</h4>
+        </div>
+        <div className="d-flex justify-content-center align-items-center w-100 gap-5 ">
+          {infos.map((info) => (
+            <SuggetionCard infos={info} />
+          ))}
+        </div>
+        <div className="col-md-12 my-3 d-flex align-items-center justify-content-between py-1 px-2">
           <SearchInput />
-        </Container>
-      </div>
+        </div>
+      </Container>
     </Container>
   );
 };
