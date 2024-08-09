@@ -9,4 +9,8 @@ export const ProductsRouter = [
     path: "/results/products/:id",
     element: <ProductsPage />,
   },
+  {
+    path: "/results/products/suggestion",
+    element: <ProductsPage />,
+  },
 ];

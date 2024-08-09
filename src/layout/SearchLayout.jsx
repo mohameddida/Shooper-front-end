@@ -1,70 +1,54 @@
 import React, { useState } from "react";
 import { Container, Row } from "react-bootstrap";
-import product1 from "../asset/products/pexels-alexandra-maria-58259-336372.jpg";
-import product2 from "../asset/products/pexels-anastasiya-gepp-654466-1462637.jpg";
-import product3 from "../asset/products/pexels-junior-teixeira-1064069-2047905.jpg";
-import product4 from "../asset/products/pexels-life-of-pix-7974.jpg";
-import product5 from "../asset/products/pexels-marleneleppanen-1183266.jpg";
-import product6 from "../asset/products/pexels-morningtrain-18105.jpg";
-import product7 from "../asset/products/pexels-mota-701877.jpg";
-import product8 from "../asset/products/pexels-spencer-selover-142259-428338.jpg";
-import SuggetionCard from "../components/Cards/SuggetionCard";
+import { useNavigate } from "react-router";
+import produt1 from "../asset/products/robe/1.jpg";
+import produt2 from "../asset/products/robe/images (1).jpeg";
+import produt3 from "../asset/products/robe/images (2).jpeg";
+import produt4 from "../asset/products/robe/images.jpeg";
+import SuggestionList from "../components/Cards/SuggestionList";
+import ChatComponent from "../components/Chat/ChatComponent";
 import SearchInput from "../components/inputs/SearchInput";
 import NavBar from "../components/navBar/NavBar";
 import "../styles/index.css";
-const SearchLayout = ({ search, openvoicesearch }) => {
-  const [input, setinput] = useState("");
-  const [showSuggestings, setShowSuggestions] = useState(false);
-  const handlesubmit = (e) => {
-    e.preventDefault();
-    if (/^[a-zA-z0-9].*/.test(input) || /^[a-zA-z0-9]+" ".*/.test(input)) {
-      search(input);
-    }
-  };
-  const suggestionsInfo = [
-    {
-      id: 1,
-      name: product1,
-    },
-    {
-      id: 2,
-      name: product2,
-    },
-    {
-      id: 3,
-      name: product3,
-    },
-    {
-      id: 4,
-      name: product4,
-    },
-    {
-      id: 5,
-      name: product5,
-    },
-    {
-      id: 6,
-      name: product6,
-    },
-    {
-      id: 7,
-      name: product7,
-    },
-    {
-      id: 8,
-      name: product8,
-    },
-  ];
-  const handlebutton = () => {
-    if (/^[a-zA-z0-9].*/.test(input) || /^[a-zA-z0-9]+" ".*/.test(input)) {
-      search(input);
-    }
+const SearchLayout = () => {
+  const userImage = "https://via.placeholder.com/70";
+  const botImage = "https://via.placeholder.com/70";
+  const navigate = useNavigate();
+  const [messages, setMessages] = useState([]);
+  const [typingMessage, setTypingMessage] = useState(null);
+
+  const simulateTypingEffect = (text, sender, image) => {
+    let index = 0;
+    setTypingMessage({ text: "", sender, align: "left", image });
+
+    const interval = setInterval(() => {
+      setTypingMessage((prevMessage) => ({
+        ...prevMessage,
+        text: prevMessage.text + text[index],
+      }));
+      index++;
+      if (index >= text.length) {
+        clearInterval(interval);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text, sender, align: "left", image },
+        ]);
+        setTypingMessage(null);
+      }
+    }, 50);
   };
 
-  const clearinput = () => {
-    setinput("");
-  };
+  const handleSend = (input) => {
+    const newMessage = {
+      text: input,
+      sender: "You",
+      align: "right",
+      image: userImage,
+    };
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
 
+    simulateTypingEffect(`Echo: ${input}`, "Bot", botImage);
+  };
   const infos = [
     {
       id: 0,
@@ -87,25 +71,81 @@ const SearchLayout = ({ search, openvoicesearch }) => {
       url: "/results/products",
     },
   ];
+  const handleSeeMore = () => {
+    navigate(`results/products/suggestion`);
+  };
+
+  const products = [
+    {
+      id: 0,
+      img: produt1,
+      name: "robe noire",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+      rate: 5,
+      brand: "ZARA",
+      price: 8.0,
+    },
+    {
+      id: 1,
+      img: produt2,
+      name: "robe noire",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+      rate: 5,
+      brand: "H&A",
+      price: 4.0,
+    },
+    {
+      id: 2,
+      img: produt3,
+      name: "robe noire",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+      rate: 5,
+      brand: "H&A",
+      price: 4.0,
+    },
+    {
+      id: 3,
+      img: produt4,
+      name: "robe noire",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+      rate: 5,
+      brand: "JUMIA",
+      price: 2.0,
+    },
+  ];
   return (
-    <Container className="d-flex flex-column justifiy-content-center p-3 h-100">
-      <Row >
-        <NavBar />
+    <Container className="d-flex flex-column p-3 h-100 w-100 ">
+      <Row>
+        <NavBar messages={messages} />
       </Row>
       <Container
         fluid
-        className="col-md-12 search-Content d-flex flex-column align-items-center justify-content-center  my-5"
+        className="search-Content d-flex flex-column align-items-center justify-content-center my-5"
       >
-        <div className="text-center">
+        <div className={messages.length === 0 ? "text-center" : "d-none"}>
           <h4>SHOOPER</h4>
         </div>
-        <div className="d-flex justify-content-center align-items-center w-100 gap-5 ">
-          {infos.map((info) => (
-            <SuggetionCard infos={info} />
-          ))}
-        </div>
-        <div className="col-md-12 my-3 d-flex align-items-center justify-content-between py-1 px-2">
-          <SearchInput />
+        {messages.length === 0 ? (
+          <div className="d-flex justify-content-center align-items-center w-100 gap-5 ">
+            <SuggestionList infos={infos} />
+          </div>
+        ) : (
+          <ChatComponent
+            messages={messages}
+            typingMessage={typingMessage}
+            products={products}
+            onSeeMore={handleSeeMore}
+          />
+        )}
+
+        <div
+          className={
+            messages.length === 0
+              ? "col-md-8 my-3 d-flex align-items-center justify-content-center mx-auto py-1 px-2"
+              : "fixed-bottom col-md-8 my-3 d-flex align-items-center justify-content-center mx-auto py-1 px-2"
+          }
+        >
+          <SearchInput onSend={handleSend} />
         </div>
       </Container>
     </Container>

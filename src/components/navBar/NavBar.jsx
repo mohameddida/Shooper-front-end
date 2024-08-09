@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
-const NavBar = () => {
+const NavBar = ({ messages }) => {
   return (
     <Navbar expand="lg" className="fixed-navbar bg-white">
       <Container>
@@ -17,6 +17,9 @@ const NavBar = () => {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
               <Nav.Link href="/Comparison">Comparison</Nav.Link>
+            </div>
+            <div className={messages?.length !== 0 ? "d-flex" : "d-none"}>
+              <h5>SHOOPER</h5>
             </div>
             <div>
               <Nav.Link
